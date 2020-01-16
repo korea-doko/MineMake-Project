@@ -82,6 +82,7 @@ public class MineralView : MonoBehaviour
     public void RemoveMineral(Mineral m)
     {
         m.Hide();
+
         this.mineralList.Remove(m);
         this.mineralPool.Add(m);
     }
