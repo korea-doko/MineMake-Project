@@ -15,4 +15,11 @@ public class PlayerModel : MonoBehaviour
 
         power = 1;
     }
+
+    public void AddRewardData(RewardData rewardData)
+    {
+        for (int i = 0; i < MineralData.NumberOfMineralType; i++)
+            playerResource.mineralValues[i] += rewardData.rewardValues[i];
+        
+    }
 }

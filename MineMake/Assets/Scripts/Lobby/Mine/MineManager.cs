@@ -21,11 +21,13 @@ public class MineManager : MonoBehaviour
         view.Init(model);
         view.onMinePanelClicked += View_onMinePanelClicked;
 
-        DataPassManager.Inst.onSceneLobbyToPlay += DataPassManager_onSceneLobbyToPlay;
-
+        MySceneManager.Inst.onUnloadLobbyScene += Inst_onUnloadLobbyScene;        
     }
 
-  
+    private void Inst_onUnloadLobbyScene(object sender, System.EventArgs e)
+    {
+        DataPassManager.Inst.chosenMineData = this.chosenMineData;
+    }
 
     private void Update()
     {
@@ -54,10 +56,5 @@ public class MineManager : MonoBehaviour
         
 
         MySceneManager.ChangeSceneTo(MySceneManager.ESceneType.Play);
-    }
-
-    private void DataPassManager_onSceneLobbyToPlay(object sender, System.EventArgs e)
-    {
-        DataPassManager.Inst.chosenMineData = this.chosenMineData;
     }
 }

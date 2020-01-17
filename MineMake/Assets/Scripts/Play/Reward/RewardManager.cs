@@ -19,14 +19,17 @@ public class RewardManager : MonoBehaviour
 
         view.onRewardPanelConfirmButtonClicked += View_onRewardPanelConfirmButtonClicked;
 
-        DataPassManager.Inst.onScenePlayToLobby += Inst_onScenePlayToLobby;
+        MySceneManager.Inst.onUnloadPlayScene += Inst_onUnloadPlayScene;
     }
 
-    
+    private void Inst_onUnloadPlayScene(object sender, EventArgs e)
+    {
+        DataPassManager.Inst.rewardData = model.rewardData;
+    }
 
     public void AddReward(MineralData md)
     {
-        model.AddReward(md.mineralType, md.life);
+        model.AddReward(md.mineralType,1);
     }
 
     public void ShowReward()
@@ -43,8 +46,5 @@ public class RewardManager : MonoBehaviour
 
         MySceneManager.ChangeSceneTo(MySceneManager.ESceneType.Lobby);
     }
-    private void Inst_onScenePlayToLobby(object sender, EventArgs e)
-    {
-        DataPassManager.Inst.rewardData = model.rewardData;
-    }
+ 
 }
