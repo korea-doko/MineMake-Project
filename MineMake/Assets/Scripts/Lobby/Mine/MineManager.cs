@@ -40,14 +40,11 @@ public class MineManager : MonoBehaviour
     private void View_onMinePanelClicked(object sender, System.EventArgs e)
     {
         MinePanel mp = (MinePanel)sender;
-
-        Debug.Log(mp.id);
-
+        
         MineData md = model.GetMineData(mp.id);
+       
 
-        Debug.Log(md.testData);
-
-
+        // DataPassManager에 선택한 것 저장
         DataPassManager.Inst.chosenMineData = md;
 
         MySceneManager.ChangeSceneTo(MySceneManager.ESceneType.Play);

@@ -22,6 +22,7 @@ public class Mineral : MonoBehaviour
 
     public void Show(Vector3 pos)
     {
+        this.transform.position = pos;
         this.gameObject.SetActive(true);
     }
     public void Hide()

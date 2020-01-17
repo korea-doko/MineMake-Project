@@ -8,6 +8,9 @@ public class InputManager : MonoBehaviour
     public static InputManager Inst { get => inst; }
     public InputManager() { inst = this; }
 
+    public GameObject testEffect;
+
+
     private void Awake()
     {
         
