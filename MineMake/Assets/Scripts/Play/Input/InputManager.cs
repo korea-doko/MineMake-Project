@@ -40,17 +40,16 @@ public class InputManager : MonoBehaviour
                     }
                     else
                     {
-
+                        // 바닥 클릭 여기
+                        int depth = 1;
+                        DepthManager.Inst.IncreaseDepth(depth);
                     }
                 }
                 else
                 {
                     // 아무것도 맞지 않음
                 }
-            }
-            
-           
+            }          
         }
-
     }
 }

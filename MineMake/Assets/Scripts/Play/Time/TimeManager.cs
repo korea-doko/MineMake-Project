@@ -21,8 +21,10 @@ public class TimeManager : MonoBehaviour
         model.Init();
         view.Init(model);
 
-        maxTime = curTime = 3.0f;
+        maxTime = curTime = 10.0f;
     }
+
+    
 
     private void Update()
     {
@@ -32,9 +34,9 @@ public class TimeManager : MonoBehaviour
 
         if( curTime <= 0)
         {
-            Debug.Log(" 시간 초과 ");
+            RewardManager.Inst.ShowReward();
 
-            MySceneManager.ChangeSceneTo(MySceneManager.ESceneType.Lobby);
+            //MySceneManager.ChangeSceneTo(MySceneManager.ESceneType.Lobby);
         }
 
         view.ChangeGaugeRatio(ratio);

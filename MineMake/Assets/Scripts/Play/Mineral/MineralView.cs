@@ -7,6 +7,8 @@ public class MineralView : MonoBehaviour
 {
     public event EventHandler OnMineralHit;
 
+
+
     public List<Mineral> mineralPool;
     public List<Mineral> mineralList;
 
@@ -51,25 +53,7 @@ public class MineralView : MonoBehaviour
 
         return index;
     }
-
-
-    private void InitMineralPool()
-    {
-        mineralPool = new List<Mineral>();
-
-        GameObject mineralPrefab = Resources.Load("Mineral") as GameObject;
-
-        for(int i = 0; i < 30 ; i++)
-        {
-            Mineral m = ((GameObject)Instantiate(mineralPrefab)).GetComponent<Mineral>();
-            m.Init(i);
-            m.OnMineralHit += M_OnMineralHit;
-
-            m.transform.SetParent(this.transform);
-            mineralPool.Add(m);
-        }
-    }
-
+  
     public Mineral GetActivatedMineralUsingIndex(int _mineralDataIndex)
     {
         if (_mineralDataIndex < 0 || _mineralDataIndex >= mineralList.Count)
@@ -85,6 +69,23 @@ public class MineralView : MonoBehaviour
 
         this.mineralList.Remove(m);
         this.mineralPool.Add(m);
+    }
+
+    private void InitMineralPool()
+    {
+        mineralPool = new List<Mineral>();
+
+        GameObject mineralPrefab = Resources.Load("Mineral") as GameObject;
+
+        for (int i = 0; i < 30; i++)
+        {
+            Mineral m = ((GameObject)Instantiate(mineralPrefab)).GetComponent<Mineral>();
+            m.Init(i);
+            m.OnMineralHit += M_OnMineralHit;
+
+            m.transform.SetParent(this.transform);
+            mineralPool.Add(m);
+        }
     }
 
     private void M_OnMineralHit(object sender, EventArgs e)

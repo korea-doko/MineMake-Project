@@ -10,13 +10,14 @@ public class MineralModel : MonoBehaviour
     public List<MineralData> mineralDataPool;
     public List<MineralData> mineralDataList;
 
+    
     public void Init()
     {
 
-        InitMineralDataList();
-
+        InitMineralDataList(); 
     }
 
+  
     public MineralData GetMineralData()
     {
         if (mineralDataPool.Count <= 0)

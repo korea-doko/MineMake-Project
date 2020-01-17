@@ -12,6 +12,7 @@ public class MineManager : MonoBehaviour
     [SerializeField] private MineModel model;
     [SerializeField] private MineView view;
 
+    [SerializeField] MineData chosenMineData;
 
 
     private void Awake()
@@ -19,8 +20,12 @@ public class MineManager : MonoBehaviour
         model.Init();
         view.Init(model);
         view.onMinePanelClicked += View_onMinePanelClicked;
+
+        DataPassManager.Inst.onSceneLobbyToPlay += DataPassManager_onSceneLobbyToPlay;
+
     }
 
+  
 
     private void Update()
     {
@@ -41,12 +46,18 @@ public class MineManager : MonoBehaviour
     {
         MinePanel mp = (MinePanel)sender;
         
-        MineData md = model.GetMineData(mp.id);
+        this.chosenMineData = model.GetMineData(mp.id);
        
 
         // DataPassManager에 선택한 것 저장
-        DataPassManager.Inst.chosenMineData = md;
+        // DataPassManager.Inst.chosenMineData = md;
+        
 
         MySceneManager.ChangeSceneTo(MySceneManager.ESceneType.Play);
+    }
+
+    private void DataPassManager_onSceneLobbyToPlay(object sender, System.EventArgs e)
+    {
+        DataPassManager.Inst.chosenMineData = this.chosenMineData;
     }
 }

@@ -7,10 +7,7 @@ public class LobbyManager : MonoBehaviour
     private static LobbyManager inst;
 
     public static LobbyManager Inst { get => inst; }
-    public LobbyManager()
-    {
-        inst = this;
-    }
+    public LobbyManager() { inst = this; }
 
     private void Awake()
     {

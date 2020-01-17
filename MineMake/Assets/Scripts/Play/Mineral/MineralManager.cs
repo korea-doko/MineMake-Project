@@ -16,26 +16,50 @@ public class MineralManager : MonoBehaviour
     [SerializeField] private Vector3 lowerLeft;
     [SerializeField] private Vector3 upperRight;
 
+    [SerializeField] private float maxRegenTime;
+    [SerializeField] private float minRegenTime;
+    [SerializeField] private int maxExistingMinerals;
+
+    [SerializeField] private int depth;
+
     private void Awake()
     {
         model.Init();
         view.Init(model);
 
-        
+
         lowerLeft = Camera.main.ScreenToWorldPoint(Vector2.zero);
         upperRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
 
+        maxRegenTime = 5.0f;
+        minRegenTime = 1.0f;
+        maxExistingMinerals = 2;
+        depth = 0;
+
+
         model.OnMineralLifeBelowZero += Model_OnMineralLifeBelowZero;
         view.OnMineralHit += View_OnMineralHit;
+
+
+
+
+        StartCoroutine(GenerateMineral());
+    }
+    
+    IEnumerator GenerateMineral()
+    {       
+        while(true)
+        {
+            float waitingTime = UnityEngine.Random.Range(minRegenTime, maxRegenTime);
+
+            yield return new WaitForSeconds(waitingTime);
+
+            if (model.mineralDataList.Count < maxExistingMinerals)
+                ShowMineral();
+        }
     }
 
-  
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            ShowMineral();
-    }
 
     public void ShowMineral()
     {
@@ -75,6 +99,7 @@ public class MineralManager : MonoBehaviour
         
         Mineral m = view.GetActivatedMineralUsingIndex(dataIndex);
 
+        RewardManager.Inst.AddReward(md);
 
         model.RemoveMineralData(md);
         view.RemoveMineral(m);
