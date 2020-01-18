@@ -21,7 +21,7 @@ public class TimeManager : MonoBehaviour
         model.Init();
         view.Init(model);
 
-        maxTime = curTime = 10.0f;
+        maxTime = curTime = 60.0f;
     }
 
     

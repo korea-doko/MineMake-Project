@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class InputManager : MonoBehaviour
 {
+    public event EventHandler onBGClicked;
+
     private static InputManager inst;
     public static InputManager Inst { get => inst; }
     public InputManager() { inst = this; }
@@ -40,9 +43,11 @@ public class InputManager : MonoBehaviour
                     }
                     else
                     {
-                        // 바닥 클릭 여기
-                        int depth = 1;
-                        DepthManager.Inst.IncreaseDepth(depth);
+                        onBGClicked(this, EventArgs.Empty);
+                        //// 바닥 클릭 여기
+                        //int depth = 1;
+                        //DepthManager.Inst.IncreaseDepth(depth);
+
                     }
                 }
                 else

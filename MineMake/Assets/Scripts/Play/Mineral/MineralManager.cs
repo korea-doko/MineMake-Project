@@ -13,8 +13,8 @@ public class MineralManager : MonoBehaviour
     public MineralModel model;
     public MineralView view;
 
-    [SerializeField] private Vector3 lowerLeft;
-    [SerializeField] private Vector3 upperRight;
+    //[SerializeField] private Vector3 lowerLeft;
+    //[SerializeField] private Vector3 upperRight;
 
     [SerializeField] private float maxRegenTime;
     [SerializeField] private float minRegenTime;
@@ -22,26 +22,18 @@ public class MineralManager : MonoBehaviour
 
     [SerializeField] private int depth;
 
-    private void Awake()
+    private void Start()
     {
         model.Init();
         view.Init(model);
-
-
-        lowerLeft = Camera.main.ScreenToWorldPoint(Vector2.zero);
-        upperRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-
+       
         maxRegenTime = 5.0f;
         minRegenTime = 1.0f;
         maxExistingMinerals = 2;
         depth = 0;
 
-
         model.OnMineralLifeBelowZero += Model_OnMineralLifeBelowZero;
         view.OnMineralHit += View_OnMineralHit;
-
-
-
 
         StartCoroutine(GenerateMineral());
     }
@@ -55,17 +47,26 @@ public class MineralManager : MonoBehaviour
             yield return new WaitForSeconds(waitingTime);
 
             if (model.mineralDataList.Count < maxExistingMinerals)
-                ShowMineral();
+            {
+                ShowIndicator();
+            }
         }
     }
 
+    public void ShowIndicator()
+    {
+        MineralIndicator mi = view.GetIndicator();
 
+        Vector3 randPos = GetRandomMineralPos();
+
+        view.ShowIndicator(mi, randPos);
+
+    }
 
     public void ShowMineral()
     {
         MineralData md = GetRandomMineralData();
-        model.ActivateMineral(md);
-
+    
         Mineral m = view.GetMineral();
         Vector3 randomPos = GetRandomMineralPos();
 
@@ -74,8 +75,9 @@ public class MineralManager : MonoBehaviour
 
     private Vector3 GetRandomMineralPos()
     {
-        float randomX = UnityEngine.Random.Range(lowerLeft.x, upperRight.x);
-        float randomY = UnityEngine.Random.Range(lowerLeft.y, upperRight.y);
+        float randomX = UnityEngine.Random.Range(CoordiManager.lowerLeft.x, CoordiManager.upperRight.x);
+
+        float randomY = UnityEngine.Random.Range(CoordiManager.lowerLeft.y, CoordiManager.upperRight.y);
 
         return new Vector3(randomX, randomY);
     }
@@ -87,7 +89,7 @@ public class MineralManager : MonoBehaviour
         md.mineralType = (EMineralType)(UnityEngine.Random.Range(0, MineralData.NumberOfMineralType));
 
         md.life = UnityEngine.Random.Range(5, 10);
-
+        
         return md;
     }
 
@@ -112,6 +114,5 @@ public class MineralManager : MonoBehaviour
         MineralData md = model.GetActivatedMineralDataUsingIndex(index);
         md.GetDamaged(20);
         // 나중에 데미지는 20이 아니라 다르게 줘야 한다.
-
     }
 }

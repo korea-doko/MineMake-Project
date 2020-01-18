@@ -13,7 +13,7 @@ public class MineManager : MonoBehaviour
     [SerializeField] private MineView view;
 
     [SerializeField] MineData chosenMineData;
-
+    
 
     private void Awake()
     {
@@ -29,20 +29,11 @@ public class MineManager : MonoBehaviour
         DataPassManager.Inst.chosenMineData = this.chosenMineData;
     }
 
-    private void Update()
-    {
-        if( Input.GetKeyDown(KeyCode.M))
-        {
-            ShowMineInfo();
-        }
-    }
 
-    public void ShowMineInfo()
+    public void ShowMine()
     {
         view.ShowMine(model);
     }
-
-
 
     private void View_onMinePanelClicked(object sender, System.EventArgs e)
     {
@@ -50,7 +41,7 @@ public class MineManager : MonoBehaviour
         
         this.chosenMineData = model.GetMineData(mp.id);
        
-
+        // f12누르면 함수로 다이빙
         // DataPassManager에 선택한 것 저장
         // DataPassManager.Inst.chosenMineData = md;
         

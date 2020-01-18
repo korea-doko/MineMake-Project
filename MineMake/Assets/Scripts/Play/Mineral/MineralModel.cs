@@ -26,12 +26,9 @@ public class MineralModel : MonoBehaviour
         MineralData md = mineralDataPool[0];
         mineralDataPool.RemoveAt(0);
 
-        return md;
-    }
-
-    public void ActivateMineral(MineralData md)
-    {
         mineralDataList.Add(md);
+
+        return md;
     }
 
     private void InitMineralDataList()

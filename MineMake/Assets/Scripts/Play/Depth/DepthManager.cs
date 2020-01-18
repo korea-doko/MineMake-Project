@@ -17,17 +17,26 @@ public class DepthManager : MonoBehaviour
     {
         model.Init();
         view.Init(model);
+
+        InputManager.Inst.onBGClicked += Inst_onBGClicked;
     }
 
-    public void IncreaseDepth(int depth)
+  
+
+    private void IncreaseDepth(int depth)
     {
         model.depth += depth;
-
-
         ChangeDepthPanel();
     }
     private void ChangeDepthPanel()
     {
         view.ChangeDepthPanel(model.depth);
+    }
+
+
+    private void Inst_onBGClicked(object sender, EventArgs e)
+    {
+        int depth = 1;
+        IncreaseDepth(depth);
     }
 }
