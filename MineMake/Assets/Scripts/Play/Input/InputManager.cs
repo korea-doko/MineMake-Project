@@ -11,21 +11,25 @@ public class InputManager : MonoBehaviour
     public static InputManager Inst { get => inst; }
     public InputManager() { inst = this; }
 
-    public GameObject testEffect;
+    public InputModel model;
+    public InputView view;
 
 
     private void Awake()
     {
-        
+        model.Init();
+        view.Init(model);
     }
     private void Update()
     {
         
         if( Input.GetMouseButtonDown(0))
         {
+            Vector3 clickedPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
             RaycastHit2D[] hits = Physics2D.RaycastAll
                 (
-                Camera.main.ScreenToWorldPoint( Input.mousePosition ), 
+                clickedPos,
                 Vector2.zero
                 );
 
@@ -43,11 +47,9 @@ public class InputManager : MonoBehaviour
                     }
                     else
                     {
-                        onBGClicked(this, EventArgs.Empty);
-                        //// 바닥 클릭 여기
-                        //int depth = 1;
-                        //DepthManager.Inst.IncreaseDepth(depth);
+                        ShowDroppingDirtAt(clickedPos);   
 
+                        onBGClicked(this, EventArgs.Empty);
                     }
                 }
                 else
@@ -56,5 +58,12 @@ public class InputManager : MonoBehaviour
                 }
             }          
         }
+    }
+
+    private void ShowDroppingDirtAt(Vector3 _pos)
+    {
+        DroppingDirt dd = view.GetDroppingDirt();
+
+        dd.Show(_pos);
     }
 }
