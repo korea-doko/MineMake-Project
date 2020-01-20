@@ -20,7 +20,7 @@ public class BGManager : MonoBehaviour
         model.Init();
         view.Init(model);
 
-        bgMovingDistance = 10.0f;
+        bgMovingDistance = 1.0f;
 
         InputManager.Inst.onBGClicked += Inst_onBGClicked;
     }

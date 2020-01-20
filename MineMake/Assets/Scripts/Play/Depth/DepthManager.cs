@@ -26,10 +26,6 @@ public class DepthManager : MonoBehaviour
     private void IncreaseDepth(int depth)
     {
         model.depth += depth;
-        ChangeDepthPanel();
-    }
-    private void ChangeDepthPanel()
-    {
         view.ChangeDepthPanel(model.depth);
     }
 

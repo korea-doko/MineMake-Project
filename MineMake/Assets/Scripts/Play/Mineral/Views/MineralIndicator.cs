@@ -20,7 +20,6 @@ public class MineralIndicator : MonoBehaviour
     public void Show(Vector3 randPos)
     {
         this.transform.position = randPos;
-
         this.gameObject.SetActive(true);
     }
 }

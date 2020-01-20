@@ -22,9 +22,15 @@ public class InputManager : MonoBehaviour
     }
     private void Update()
     {
-        
-        if( Input.GetMouseButtonDown(0))
+        InputMouse();
+      
+    }
+
+    private void InputMouse()
+    {
+        if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("a");
             Vector3 clickedPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             RaycastHit2D[] hits = Physics2D.RaycastAll
@@ -33,7 +39,7 @@ public class InputManager : MonoBehaviour
                 Vector2.zero
                 );
 
-            foreach( RaycastHit2D hit in hits)
+            foreach (RaycastHit2D hit in hits)
             {
                 if (hit.collider != null)
                 {
@@ -43,11 +49,11 @@ public class InputManager : MonoBehaviour
                         Mineral m = hit.collider.GetComponent<Mineral>();
 
                         m.MineralHit();
-                                              
+
                     }
                     else
                     {
-                        ShowDroppingDirtAt(clickedPos);   
+                        ShowDroppingDirtAt(clickedPos);
 
                         onBGClicked(this, EventArgs.Empty);
                     }
@@ -56,10 +62,9 @@ public class InputManager : MonoBehaviour
                 {
                     // 아무것도 맞지 않음
                 }
-            }          
+            }
         }
     }
-
     private void ShowDroppingDirtAt(Vector3 _pos)
     {
         DroppingDirt dd = view.GetDroppingDirt();

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,6 +30,10 @@ public class MineManager : MonoBehaviour
         DataPassManager.Inst.chosenMineData = this.chosenMineData;
     }
 
+    public void HideMine()
+    {
+        view.Hide();
+    }
 
     public void ShowMine()
     {

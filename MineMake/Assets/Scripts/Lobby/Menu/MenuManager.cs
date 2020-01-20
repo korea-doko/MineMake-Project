@@ -9,7 +9,7 @@ public enum EMenuType
     TEST2,
     Mine,
     TEST3,
-    TEST4
+    Shop
 }
 
 public class MenuManager : MonoBehaviour
@@ -31,8 +31,15 @@ public class MenuManager : MonoBehaviour
         view.onMenuButtonClicked += View_onMenuButtonClicked;
     }
 
+    private void SendHideAll()
+    {
+        MineManager.Inst.HideMine();
+        ShopManager.Inst.HideShop();
+    }
     private void View_onMenuButtonClicked(object sender, System.EventArgs e)
     {
+        SendHideAll();
+
         MenuButton mb = (MenuButton)sender;
 
         switch (mb.menuType)
@@ -46,7 +53,8 @@ public class MenuManager : MonoBehaviour
                 break;
             case EMenuType.TEST3:
                 break;
-            case EMenuType.TEST4:
+            case EMenuType.Shop:
+                ShopManager.Inst.ShowShop();
                 break;
             default:
                 break;

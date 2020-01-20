@@ -28,4 +28,9 @@ public class MineView : MonoBehaviour
     {
         onMinePanelClicked(sender, e);
     }
+
+    public void Hide()
+    {
+        minePanelContainer.Hide();
+    }
 }
